@@ -964,8 +964,292 @@
 
         // Download resume functionality
         function downloadResume() {
-            // In a real implementation, this would trigger a PDF download
-            alert('Resume download functionality would be implemented here. In a real scenario, this would download the PDF version of the resume.');
+            // Create a new window for printing/PDF generation
+            const printWindow = window.open('', '_blank');
+            
+            const resumeContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Sayed Muddassir Hussain - Resume</title>
+                    <style>
+                        * {
+                            margin: 0;
+                            padding: 0;
+                            box-sizing: border-box;
+                        }
+                        
+                        body {
+                            font-family: 'Times New Roman', serif;
+                            line-height: 1.4;
+                            color: #000;
+                            background: white;
+                            max-width: 210mm;
+                            margin: 0 auto;
+                            padding: 20mm;
+                        }
+                        
+                        .resume-header {
+                            text-align: center;
+                            margin-bottom: 20px;
+                            padding-bottom: 15px;
+                            border-bottom: 2px solid #2563eb;
+                        }
+                        
+                        .resume-name {
+                            font-size: 24px;
+                            font-weight: bold;
+                            color: #2563eb;
+                            margin-bottom: 5px;
+                        }
+                        
+                        .resume-title {
+                            font-size: 16px;
+                            color: #666;
+                            margin-bottom: 10px;
+                        }
+                        
+                        .resume-contact {
+                            font-size: 12px;
+                            color: #666;
+                        }
+                        
+                        .resume-section-title {
+                            font-size: 16px;
+                            font-weight: bold;
+                            color: #2563eb;
+                            margin: 20px 0 10px 0;
+                            padding-bottom: 5px;
+                            border-bottom: 1px solid #e5e7eb;
+                        }
+                        
+                        .experience-item {
+                            margin-bottom: 15px;
+                        }
+                        
+                        .experience-header {
+                            display: flex;
+                            justify-content: space-between;
+                            font-weight: bold;
+                            margin-bottom: 5px;
+                        }
+                        
+                        .experience-list {
+                            margin-left: 15px;
+                            color: #666;
+                        }
+                        
+                        .experience-list li {
+                            margin-bottom: 3px;
+                        }
+                        
+                        .education-item {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-bottom: 10px;
+                        }
+                        
+                        .education-left {
+                            flex: 1;
+                        }
+                        
+                        .education-right {
+                            font-weight: bold;
+                        }
+                        
+                        .skills-grid {
+                            display: grid;
+                            grid-template-columns: repeat(2, 1fr);
+                            gap: 10px;
+                            margin-bottom: 15px;
+                        }
+                        
+                        .skill-category {
+                            margin-bottom: 10px;
+                        }
+                        
+                        .skill-title {
+                            font-weight: bold;
+                            color: #2563eb;
+                            margin-bottom: 5px;
+                        }
+                        
+                        .skill-content {
+                            color: #666;
+                            font-size: 12px;
+                        }
+                        
+                        .accomplishments-list {
+                            margin-left: 15px;
+                            color: #666;
+                        }
+                        
+                        .accomplishments-list li {
+                            margin-bottom: 3px;
+                        }
+                        
+                        .languages {
+                            display: flex;
+                            gap: 30px;
+                            margin-bottom: 10px;
+                        }
+                        
+                        @media print {
+                            body {
+                                padding: 0;
+                            }
+                            
+                            .no-print {
+                                display: none;
+                            }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="resume-header">
+                        <div class="resume-name">SAYED MUDDASSIR HUSSAIN</div>
+                        <div class="resume-title">ASSOCIATE STAFF ENGINEER</div>
+                        <div class="resume-contact">
+                            +918005510618 | sayedmuddassirhussain@gmail.com | Jaipur, Rajasthan
+                        </div>
+                    </div>
+
+                    <div class="resume-section-title">PROFILE</div>
+                    <p>Detail-oriented Senior Software Developer with 5+ years experience and currently an Associate Staff Engineer at Nagarro. I excel at building high-performance, cloud-native Java microservices using Quarkus and end-to-end reactive programming with Mutiny. Adept in RESTful API design, Docker/Kubernetes containerization, and Agile delivery, I consistently drive impactful solutions in fast-paced, deadline-driven environments.</p>
+
+                    <div class="resume-section-title">WORK EXPERIENCE</div>
+                    
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <span>Associate Staff Engineer | Nagarro</span>
+                            <span>May 2023 - Present</span>
+                        </div>
+                        <ul class="experience-list">
+                            <li>Created RESTful backend services for frontend and middleware applications utilizing Quarkus with a focus on reactive programming</li>
+                            <li>Introduced in-memory and distributed caching strategies to greatly improve API performance and minimize response times</li>
+                            <li>Automated CI/CD deployment to OpenShift through GitLab pipelines, ensuring smooth integration and delivery</li>
+                            <li>Designed and developed a Content Management System (CMS) with APIs for Excel file processing</li>
+                            <li>Secured microservices using Spring Security with JWT-based role authentication</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <span>Systems Engineer (Digital Cadre) | Tata Consultancy Services</span>
+                            <span>Nov 2020 - May 2023</span>
+                        </div>
+                        <ul class="experience-list">
+                            <li>Developed and maintained multiple RESTful middleware and backend microservices using Spring Boot, Spring Data JPA, and WebFlux</li>
+                            <li>Built a Kafka producer to publish events on DB updates</li>
+                            <li>Optimized data handling with Java 8 features</li>
+                            <li>Implemented batch jobs with complex business logic</li>
+                        </ul>
+                    </div>
+
+                    <div class="resume-section-title">EDUCATION</div>
+                    <div class="education-item">
+                        <div class="education-left">
+                            <div style="font-weight: bold;">Bachelor Of Technology</div>
+                            <div style="color: #666;">Rajasthan Technical University</div>
+                            <div style="color: #666;">78%</div>
+                        </div>
+                        <div class="education-right">2016 - 2020</div>
+                    </div>
+                    <div class="education-item">
+                        <div class="education-left">
+                            <div style="font-weight: bold;">XII Standard</div>
+                            <div style="color: #666;">DAV Centenary School</div>
+                            <div style="color: #666;">76%</div>
+                        </div>
+                        <div class="education-right">2014 - 2016</div>
+                    </div>
+
+                    <div class="resume-section-title">SKILLS</div>
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <div class="skill-title">Backend Development</div>
+                            <div class="skill-content">Java, Python, Spring Boot, Quarkus, Hibernate</div>
+                        </div>
+                        <div class="skill-category">
+                            <div class="skill-title">Frontend</div>
+                            <div class="skill-content">ReactJS, JavaScript, HTML, CSS</div>
+                        </div>
+                        <div class="skill-category">
+                            <div class="skill-title">Database</div>
+                            <div class="skill-content">SQL, DynamoDB, Redis</div>
+                        </div>
+                        <div class="skill-category">
+                            <div class="skill-title">Cloud & DevOps</div>
+                            <div class="skill-content">AWS, Docker, OpenShift, Kafka</div>
+                        </div>
+                        <div class="skill-category">
+                            <div class="skill-title">API Development</div>
+                            <div class="skill-content">RESTful APIs, Reactive Programming</div>
+                        </div>
+                        <div class="skill-category">
+                            <div class="skill-title">Tools</div>
+                            <div class="skill-content">Git, GitLab CI/CD, Maven</div>
+                        </div>
+                    </div>
+
+                    <div class="resume-section-title">ACCOMPLISHMENTS</div>
+                    <ul class="accomplishments-list">
+                        <li>Consistently received a performance rating of "Highly Valuable" over the last several quarters</li>
+                        <li>Successfully passed the TCS Digital Capability Assessment on the first attempt</li>
+                        <li>Honored with the On-the-Spot Award for emergence as a talented developer within the team</li>
+                        <li>Designed and developed a comprehensive Content Management System (CMS)</li>
+                        <li>Implemented robust microservices security using Spring Security with JWT authentication</li>
+                        <li>Automated CI/CD deployment processes improving development efficiency</li>
+                    </ul>
+
+                    <div class="resume-section-title">LANGUAGES</div>
+                    <div class="languages">
+                        <div><strong>English:</strong> Fluent</div>
+                        <div><strong>Hindi:</strong> Native</div>
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            printWindow.document.write(resumeContent);
+            printWindow.document.close();
+            
+            // Wait for content to load, then trigger print dialog
+            printWindow.onload = function() {
+                setTimeout(function() {
+                    printWindow.print();
+                    // Close the window after printing
+                    printWindow.onafterprint = function() {
+                        printWindow.close();
+                    };
+                }, 500);
+            };
+        }
+
+        // Alternative function for direct PDF generation using modern browsers
+        function downloadResumeAsPDF() {
+            // Create a temporary container for the resume content
+            const resumeContainer = document.createElement('div');
+            resumeContainer.style.cssText = `
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+                width: 210mm;
+                background: white;
+                font-family: 'Times New Roman', serif;
+                line-height: 1.4;
+                color: #000;
+                padding: 20mm;
+            `;
+            
+            resumeContainer.innerHTML = document.querySelector('.resume-content').innerHTML;
+            document.body.appendChild(resumeContainer);
+            
+            // Use the browser's print functionality to save as PDF
+            window.print();
+            
+            // Clean up
+            document.body.removeChild(resumeContainer);
         }
 
         // Smooth scrolling for navigation links
