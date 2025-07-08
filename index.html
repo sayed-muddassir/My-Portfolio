@@ -1,35 +1,1189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
-    <title>SMH Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayed Muddassir Hussain - Associate Staff Engineer</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --bg-color: #ffffff;
+            --surface-color: #f8fafc;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --border-color: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #3b82f6;
+            --secondary-color: #2563eb;
+            --accent-color: #60a5fa;
+            --bg-color: #0f172a;
+            --surface-color: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--surface-color);
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+        }
+
+        section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero .description {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.8;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-item:hover {
+            opacity: 0.8;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .skill-category h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary-color);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 3rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .timeline-content {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            width: 45%;
+            position: relative;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 55%;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: 55%;
+        }
+
+        .timeline-date {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+            color: var(--text-primary);
+        }
+
+        .timeline-company {
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Resume Section */
+        .resume-section {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 3rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .resume-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Accomplishments */
+        .accomplishments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .accomplishment-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .accomplishment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-color);
+        }
+
+        .accomplishment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--bg-color);
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close {
+            color: var(--text-secondary);
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: var(--text-primary);
+        }
+
+        .resume-content {
+            padding: 2rem;
+            font-family: 'Times New Roman', serif;
+            line-height: 1.4;
+        }
+
+        .resume-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .resume-name {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .resume-title {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .resume-contact {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .resume-section-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--surface-color);
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 0;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-content {
+                width: 100%;
+                margin-left: 40px !important;
+                margin-right: 0 !important;
+            }
+
+            .resume-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Welcome to Muddassir's Portfolio</h1>
+        <nav class="container">
+            <div class="logo">SMH</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#resume">Resume</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><button class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button></li>
+            </ul>
+        </nav>
     </header>
-    <section>
-        <h2>About Me</h2>
-        <p>My name is Sayed Muddassir Hussain. I am a Backend developer with a passion for Full-Stack development and DevOps.</p>
-    </section>
-    <section>
-        <h2>My Technical Skills</h2>
-        <ul>
-            <li>Java</li>
-            <li>Spring Boot</li>
-            <li>React</li>
-        </ul>
-    </section>
-    <section>
-        <h2>My Projects</h2>
-        <ul>
-            <li><a href="#">Bam to Beam</a></li>
-            <li><a href="#">Fcra Jcurie</a></li>
-            <li><a href="#">Riyad Bank Mobile revamp</a></li>
-        </ul>
-    </section>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Sayed Muddassir Hussain</h1>
+                    <p class="subtitle">Associate Staff Engineer</p>
+                    <p class="description">
+                        Detail-oriented Senior Software Developer with 5+ years experience specializing in 
+                        high-performance, cloud-native Java microservices using Quarkus and reactive programming.
+                    </p>
+                    <div class="contact-info">
+                        <a href="tel:+918005510618" class="contact-item">
+                            📞 +91 8005510618
+                        </a>
+                        <a href="mailto:sayedmuddassirhussain@gmail.com" class="contact-item">
+                            ✉️ sayedmuddassirhussain@gmail.com
+                        </a>
+                        <span class="contact-item">
+                            📍 Jaipur, Rajasthan
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="animate-on-scroll">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                    <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-secondary);">
+                        I am a passionate software engineer with expertise in building scalable, cloud-native applications. 
+                        Currently serving as an Associate Staff Engineer at Nagarro, I excel at creating high-performance 
+                        Java microservices using modern frameworks like Quarkus and implementing end-to-end reactive 
+                        programming with Mutiny. My experience spans across RESTful API design, Docker/Kubernetes 
+                        containerization, and Agile delivery methodologies.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="animate-on-scroll">
+            <div class="container">
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Backend Development</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Spring Boot</span>
+                            <span class="skill-tag">Quarkus</span>
+                            <span class="skill-tag">Hibernate</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Frontend Development</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">ReactJS</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">HTML</span>
+                            <span class="skill-tag">CSS</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Database & Storage</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">SQL</span>
+                            <span class="skill-tag">DynamoDB</span>
+                            <span class="skill-tag">Redis</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Cloud & DevOps</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">AWS</span>
+                            <span class="skill-tag">Docker</span>
+                            <span class="skill-tag">OpenShift</span>
+                            <span class="skill-tag">Kafka</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>API & Programming</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">RESTful APIs</span>
+                            <span class="skill-tag">Reactive Programming</span>
+                            <span class="skill-tag">Mutiny</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Tools & Version Control</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">GitLab CI/CD</span>
+                            <span class="skill-tag">Maven</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="animate-on-scroll">
+            <div class="container">
+                <h2 class="section-title">Career Timeline</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2023 - Present</div>
+                            <h3 class="timeline-title">Associate Staff Engineer</h3>
+                            <div class="timeline-company">Nagarro</div>
+                            <p class="timeline-description">
+                                Leading development of high-performance, cloud-native Java microservices using Quarkus 
+                                and reactive programming with Mutiny. Focusing on RESTful API design, Docker/Kubernetes 
+                                containerization, and Agile delivery in fast-paced environments.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2020 - 2023</div>
+                            <h3 class="timeline-title">Systems Engineer (Digital Cadre)</h3>
+                            <div class="timeline-company">Tata Consultancy Services</div>
+                            <p class="timeline-description">
+                                Developed and maintained RESTful middleware and backend microservices using Spring Boot, 
+                                Spring Data JPA, and WebFlux. Built Kafka producers, implemented caching strategies, 
+                                and automated CI/CD deployments to OpenShift.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2016 - 2020</div>
+                            <h3 class="timeline-title">Bachelor of Technology</h3>
+                            <div class="timeline-company">Rajasthan Technical University</div>
+                            <p class="timeline-description">
+                                Completed BTech with 78% marks, building a strong foundation in computer science 
+                                and software engineering principles that laid the groundwork for my professional career.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="resume" class="animate-on-scroll">
+            <div class="container">
+                <h2 class="section-title">Resume</h2>
+                <div class="resume-section">
+                    <h3>Professional Resume</h3>
+                    <p>View my complete professional resume with detailed experience and accomplishments.</p>
+                    <div class="resume-buttons">
+                        <button class="btn btn-primary" onclick="viewResume()">
+                            👁️ View Resume
+                        </button>
+                        <a href="#" class="btn btn-secondary" onclick="downloadResume()">
+                            💾 Download PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="accomplishments" class="animate-on-scroll">
+            <div class="container">
+                <h2 class="section-title">Key Accomplishments</h2>
+                <div class="accomplishments-grid">
+                    <div class="accomplishment-card">
+                        <h3>Performance Excellence</h3>
+                        <p>Consistently received "Highly Valuable" performance rating over several quarters, 
+                           demonstrating significant contributions to team success.</p>
+                    </div>
+                    <div class="accomplishment-card">
+                        <h3>TCS Digital Assessment</h3>
+                        <p>Successfully passed the TCS Digital Capability Assessment on the first attempt, 
+                           transitioning from Ninja to Digital Associate.</p>
+                    </div>
+                    <div class="accomplishment-card">
+                        <h3>On-the-Spot Award</h3>
+                        <p>Honored with the On-the-Spot Award for emerging as a talented developer within the team.</p>
+                    </div>
+                    <div class="accomplishment-card">
+                        <h3>Content Management System</h3>
+                        <p>Designed and developed a comprehensive CMS with APIs for Excel file processing and 
+                           structured data management.</p>
+                    </div>
+                    <div class="accomplishment-card">
+                        <h3>Microservices Security</h3>
+                        <p>Implemented robust security measures using Spring Security with JWT-based authentication 
+                           and global exception handling.</p>
+                    </div>
+                    <div class="accomplishment-card">
+                        <h3>CI/CD Automation</h3>
+                        <p>Automated CI/CD deployment to OpenShift through GitLab pipelines, ensuring smooth 
+                           integration and delivery processes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="animate-on-scroll">
+            <div class="container">
+                <h2 class="section-title">Get In Touch</h2>
+                <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+                    <p style="font-size: 1.1rem; margin-bottom: 2rem; color: var(--text-secondary);">
+                        I'm always interested in discussing new opportunities and exciting projects. 
+                        Feel free to reach out!
+                    </p>
+                    <div class="contact-info" style="justify-content: center;">
+                        <a href="tel:+918005510618" class="contact-item" style="color: var(--primary-color);">
+                            📞 +91 8005510618
+                        </a>
+                        <a href="mailto:sayedmuddassirhussain@gmail.com" class="contact-item" style="color: var(--primary-color);">
+                            ✉️ sayedmuddassirhussain@gmail.com
+                        </a>
+                        <span class="contact-item" style="color: var(--text-secondary);">
+                            📍 Jaipur, Rajasthan
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Resume Modal -->
+    <div id="resumeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Resume</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="resume-content">
+                <div class="resume-header">
+                    <div class="resume-name">SAYED MUDDASSIR HUSSAIN</div>
+                    <div class="resume-title">ASSOCIATE STAFF ENGINEER</div>
+                    <div class="resume-contact">
+                        +918005510618 | sayedmuddassirhussain@gmail.com | Jaipur, Rajasthan
+                    </div>
+                </div>
+
+                <div class="resume-section-title">PROFILE</div>
+                <p>Detail-oriented Senior Software Developer with 5+ years experience and currently an Associate Staff Engineer at Nagarro. I excel at building high-performance, cloud-native Java microservices using Quarkus and end-to-end reactive programming with Mutiny. Adept in RESTful API design, Docker/Kubernetes containerization, and Agile delivery, I consistently drive impactful solutions in fast-paced, deadline-driven environments.</p>
+
+                <div class="resume-section-title">WORK EXPERIENCE</div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 0.5rem;">
+                        <span>Associate Staff Engineer | Nagarro</span>
+                        <span>May 2023 - Present</span>
+                    </div>
+                    <ul style="margin-left: 1rem; color: var(--text-secondary);">
+                        <li>Created RESTful backend services for frontend and middleware applications utilizing Quarkus with a focus on reactive programming</li>
+                        <li>Introduced in-memory and distributed caching strategies to greatly improve API performance and minimize response times</li>
+                        <li>Automated CI/CD deployment to OpenShift through GitLab pipelines, ensuring smooth integration and delivery</li>
+                        <li>Designed and developed a Content Management System (CMS) with APIs for Excel file processing</li>
+                        <li>Secured microservices using Spring Security with JWT-based role authentication</li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 0.5rem;">
+                        <span>Systems Engineer (Digital Cadre) | Tata Consultancy Services</span>
+                        <span>Nov 2020 - May 2023</span>
+                    </div>
+                    <ul style="margin-left: 1rem; color: var(--text-secondary);">
+                        <li>Developed and maintained multiple RESTful middleware and backend microservices using Spring Boot, Spring Data JPA, and WebFlux</li>
+                        <li>Built a Kafka producer to publish events on DB updates</li>
+                        <li>Optimized data handling with Java 8 features</li>
+                        <li>Implemented batch jobs with complex business logic</li>
+                    </ul>
+                </div>
+
+                <div class="resume-section-title">EDUCATION</div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                    <div>
+                        <div style="font-weight: bold;">Bachelor Of Technology</div>
+                        <div style="color: var(--text-secondary);">Rajasthan Technical University</div>
+                        <div style="color: var(--text-secondary);">78%</div>
+                    </div>
+                    <div style="font-weight: bold;">2016 - 2020</div>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 2rem;">
+                    <div>
+                        <div style="font-weight: bold;">XII Standard</div>
+                        <div style="color: var(--text-secondary);">DAV Centenary School</div>
+                        <div style="color: var(--text-secondary);">76%</div>
+                    </div>
+                    <div style="font-weight: bold;">2014 - 2016</div>
+                </div>
+
+                <div class="resume-section-title">SKILLS</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                    <div>
+                        <div style="font-weight: bold; color: var(--primary-color); margin-bottom: 0.5rem;">Backend Development</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem;">Java, Python, Spring Boot, Quarkus, Hibernate</div>
+                    </div>
+                    <div>
+                        <div style="font-weight: bold; color: var(--primary-color); margin-bottom: 0.5rem;">Frontend</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem;">ReactJS, JavaScript, HTML, CSS</div>
+                    </div>
+                    <div>
+                        <div style="font-weight: bold; color: var(--primary-color); margin-bottom: 0.5rem;">Database</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem;">SQL, DynamoDB, Redis</div>
+                    </div>
+                    <div>
+                        <div style="font-weight: bold; color: var(--primary-color); margin-bottom: 0.5rem;">Cloud & DevOps</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem;">AWS, Docker, OpenShift, Kafka</div>
+                    </div>
+                    <div>
+                        <div style="font-weight: bold; color: var(--primary-color); margin-bottom: 0.5rem;">API Development</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem;">RESTful APIs, Reactive Programming</div>
+                    </div>
+                    <div>
+                        <div style="font-weight: bold; color: var(--primary-color); margin-bottom: 0.5rem;">Tools</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem;">Git, GitLab CI/CD, Maven</div>
+                    </div>
+                </div>
+
+                <div class="resume-section-title">ACCOMPLISHMENTS</div>
+                <ul style="margin-left: 1rem; color: var(--text-secondary);">
+                    <li>Consistently received a performance rating of "Highly Valuable" over the last several quarters</li>
+                    <li>Successfully passed the TCS Digital Capability Assessment on the first attempt</li>
+                    <li>Honored with the On-the-Spot Award for emergence as a talented developer within the team</li>
+                    <li>Designed and developed a comprehensive Content Management System (CMS)</li>
+                    <li>Implemented robust microservices security using Spring Security with JWT authentication</li>
+                    <li>Automated CI/CD deployment processes improving development efficiency</li>
+                </ul>
+
+                <div class="resume-section-title">LANGUAGES</div>
+                <div style="display: flex; gap: 2rem; margin-bottom: 1rem;">
+                    <div><strong>English:</strong> Fluent</div>
+                    <div><strong>Hindi:</strong> Native</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer>
-        <p>Contact me at: <a href="mailto:muddassir12345@gmail.com">muddassir12345@gmail.com</a></p>
+        <div class="container">
+            <p>&copy; 2024 Sayed Muddassir Hussain. All rights reserved.</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">Built with passion for clean code and innovative solutions.</p>
+        </div>
     </footer>
+
+    <script>
+        // Theme Toggle Functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeToggle.innerHTML = '🌙 Dark';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '☀️ Light';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            if (savedTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '☀️ Light';
+            }
+        });
+
+        // Modal functionality
+        function viewResume() {
+            document.getElementById('resumeModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('resumeModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('resumeModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Download resume functionality
+        function downloadResume() {
+            // In a real implementation, this would trigger a PDF download
+            alert('Resume download functionality would be implemented here. In a real scenario, this would download the PDF version of the resume.');
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with the animate-on-scroll class
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.backgroundColor = 'rgba(248, 250, 252, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.backgroundColor = 'var(--surface-color)';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Add typing effect to hero title
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        // Initialize typing effect when page loads
+        window.addEventListener('load', function() {
+            const heroTitle = document.querySelector('.hero h1');
+            const originalText = heroTitle.textContent;
+            typeWriter(heroTitle, originalText, 80);
+        });
+
+        // Add scroll-to-top functionality
+        function addScrollToTop() {
+            const scrollBtn = document.createElement('button');
+            scrollBtn.innerHTML = '↑';
+            scrollBtn.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: var(--primary-color);
+                color: white;
+                border: none;
+                font-size: 20px;
+                cursor: pointer;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                z-index: 1000;
+            `;
+            
+            scrollBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            document.body.appendChild(scrollBtn);
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 500) {
+                    scrollBtn.style.opacity = '1';
+                } else {
+                    scrollBtn.style.opacity = '0';
+                }
+            });
+        }
+
+        // Initialize scroll-to-top button
+        addScrollToTop();
+
+        // Add hover effects to timeline items
+        document.querySelectorAll('.timeline-content').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add progress bar for page scroll
+        function addProgressBar() {
+            const progressBar = document.createElement('div');
+            progressBar.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 0%;
+                height: 3px;
+                background: var(--primary-color);
+                z-index: 9999;
+                transition: width 0.1s ease;
+            `;
+            
+            document.body.appendChild(progressBar);
+            
+            window.addEventListener('scroll', function() {
+                const scrollTop = window.pageYOffset;
+                const docHeight = document.body.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                progressBar.style.width = scrollPercent + '%';
+            });
+        }
+
+        // Initialize progress bar
+        addProgressBar();
+
+        // Add mobile menu functionality
+        function addMobileMenu() {
+            const nav = document.querySelector('nav');
+            const navLinks = document.querySelector('.nav-links');
+            
+            // Create mobile menu button
+            const mobileMenuBtn = document.createElement('button');
+            mobileMenuBtn.innerHTML = '☰';
+            mobileMenuBtn.style.cssText = `
+                display: none;
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                color: var(--text-primary);
+                cursor: pointer;
+            `;
+            
+            nav.appendChild(mobileMenuBtn);
+            
+            // Add mobile styles
+            const mobileStyles = document.createElement('style');
+            mobileStyles.textContent = `
+                @media (max-width: 768px) {
+                    .mobile-menu-btn {
+                        display: block !important;
+                    }
+                    
+                    .nav-links {
+                        position: fixed;
+                        top: 80px;
+                        left: -100%;
+                        width: 100%;
+                        height: calc(100vh - 80px);
+                        background: var(--surface-color);
+                        flex-direction: column;
+                        justify-content: flex-start;
+                        padding: 2rem;
+                        transition: left 0.3s ease;
+                        border-top: 1px solid var(--border-color);
+                    }
+                    
+                    .nav-links.active {
+                        left: 0;
+                    }
+                    
+                    .nav-links li {
+                        margin: 1rem 0;
+                    }
+                }
+            `;
+            
+            document.head.appendChild(mobileStyles);
+            mobileMenuBtn.className = 'mobile-menu-btn';
+            
+            // Toggle mobile menu
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                this.innerHTML = navLinks.classList.contains('active') ? '✕' : '☰';
+            });
+            
+            // Close mobile menu when clicking on links
+            navLinks.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '☰';
+                }
+            });
+        }
+
+        // Initialize mobile menu
+        addMobileMenu();
+    </script>
 </body>
 </html>
